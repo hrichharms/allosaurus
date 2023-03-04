@@ -86,7 +86,7 @@ def main(argv: List[str]):
     try:
         filename = argv[1]
     except IndexError:
-        print("ERROR: Not enough arguments >_<")
+        print("ERROR: Not enough command line arguments >_<")
         exit()
 
     try:
@@ -98,7 +98,7 @@ def main(argv: List[str]):
     try:
         opcodes, arguments = parse_units(bytecode)
     except IndexError:
-        print("ERROR: Uneven number of bytes in bytecode >_<")
+        print("ERROR: Invalid bytecode encoding >_<")
         exit()
 
     units = len(opcodes) // 2
@@ -106,7 +106,7 @@ def main(argv: List[str]):
     suspicious = count_suspicious(opcodes, arguments)
 
     if suspicious:
-        print(f"{suspicious}/{units} of opcode arguments are suspicious -_-\n")
+        print(f"{suspicious}/{units} opcode arguments are suspicious -_-\n")
 
         payload_printable = recover_printable(opcodes, arguments)
         if payload_printable:
@@ -114,7 +114,7 @@ def main(argv: List[str]):
 
         print(f"All dead zone bytes: {recover_bytes(opcodes, arguments)}")
 
-    print("No suspicious arguments found ^_^")
+    print("No suspicious opcode arguments found ^_^")
 
 
 if __name__ == "__main__":
